@@ -401,10 +401,10 @@ namespace Vexe.Runtime.Extensions
         /// <summary>
         /// Returns true if the attribute whose type is specified by the generic argument is defined on this type
         /// </summary>
-        public static bool IsDefined<T>(this Type type) where T : Attribute
+        /*public static bool IsDefined<T>(this Type type) where T : Attribute
         {
             return type.IsDefined(typeof(T));
-        }
+        }*/
 
         /// <summary>
         /// Alternative version of <see cref="Type.IsSubclassOf"/> that supports raw generic types (generic types without

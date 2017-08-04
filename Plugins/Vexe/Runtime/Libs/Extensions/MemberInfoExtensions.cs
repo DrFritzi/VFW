@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -7,11 +6,6 @@ namespace Vexe.Runtime.Extensions
 {
     public static class MemberInfoExtensions
     {
-        public static bool IsDefined(this MemberInfo minfo, Type type)
-        {
-            return minfo.IsDefined(type, false);
-        }
-
         /// <summary>
         /// Returns true if the attribute whose type is specified by the generic argument is defined on this member
         /// </summary>
@@ -27,7 +21,7 @@ namespace Vexe.Runtime.Extensions
         {
             return IsDefined<T>(member, false);
         }
-
+        
         /// <summary>
         /// Returns PropertyInfo.PropertyType if the info was a PropertyInfo,
         /// FieldInfo.FieldType if FieldInfo, otherwise MethodInfo.ReturnType
@@ -55,35 +49,6 @@ namespace Vexe.Runtime.Extensions
         public static Type GetDataType(this MemberInfo memberInfo)
         {
             return GetDataType(memberInfo, null);
-        }
-
-        /// <summary>
-        /// Returns the first found custom attribute of type T on this member
-        /// Returns null if none was found
-        /// </summary>
-        public static T GetCustomAttribute<T>(this MemberInfo member, bool inherit) where T : Attribute
-        {
-            var all = GetCustomAttributes<T>(member, inherit).ToArray();
-            return all.IsNullOrEmpty() ? null : all[0];
-        }
-
-        /// <summary>
-        /// Returns the first found non-inherited custom attribute of type T on this member
-        /// Returns null if none was found
-        /// </summary>
-        public static T GetCustomAttribute<T>(this MemberInfo member) where T : Attribute
-        {
-            return GetCustomAttribute<T>(member, false);
-        }
-
-        public static IEnumerable<T> GetCustomAttributes<T>(this MemberInfo member) where T : Attribute
-        {
-            return GetCustomAttributes<T>(member, false);
-        }
-
-        public static IEnumerable<T> GetCustomAttributes<T>(this MemberInfo member, bool inherit) where T : Attribute
-        {
-            return member.GetCustomAttributes(typeof(T), inherit).Cast<T>();
         }
 
         public static Attribute[] GetAttributes(this MemberInfo member)
