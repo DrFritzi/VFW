@@ -7,10 +7,12 @@ namespace Vexe.Runtime.Extensions
 {
     public static class MemberInfoExtensions
     {
+#if !NET_4_6
         public static bool IsDefined(this MemberInfo minfo, Type type)
         {
             return minfo.IsDefined(type, false);
         }
+#endif
 
         /// <summary>
         /// Returns true if the attribute whose type is specified by the generic argument is defined on this member
@@ -56,7 +58,6 @@ namespace Vexe.Runtime.Extensions
         {
             return GetDataType(memberInfo, null);
         }
-
         /// <summary>
         /// Returns the first found custom attribute of type T on this member
         /// Returns null if none was found
@@ -66,7 +67,7 @@ namespace Vexe.Runtime.Extensions
             var all = GetCustomAttributes<T>(member, inherit).ToArray();
             return all.IsNullOrEmpty() ? null : all[0];
         }
-
+#if !NET_4_6
         /// <summary>
         /// Returns the first found non-inherited custom attribute of type T on this member
         /// Returns null if none was found
@@ -75,6 +76,7 @@ namespace Vexe.Runtime.Extensions
         {
             return GetCustomAttribute<T>(member, false);
         }
+#endif
 
         public static IEnumerable<T> GetCustomAttributes<T>(this MemberInfo member) where T : Attribute
         {
