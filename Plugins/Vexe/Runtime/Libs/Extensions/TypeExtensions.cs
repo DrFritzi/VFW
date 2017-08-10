@@ -397,7 +397,7 @@ namespace Vexe.Runtime.Extensions
         {
             return type.GetCustomAttributes(typeof(T), inherit).Cast<T>();
         }
-
+#if !NET_4_6
         /// <summary>
         /// Returns true if the attribute whose type is specified by the generic argument is defined on this type
         /// </summary>
@@ -405,7 +405,7 @@ namespace Vexe.Runtime.Extensions
         {
             return type.IsDefined(typeof(T));
         }
-
+#endif
         /// <summary>
         /// Alternative version of <see cref="Type.IsSubclassOf"/> that supports raw generic types (generic types without
         /// any type parameters).
